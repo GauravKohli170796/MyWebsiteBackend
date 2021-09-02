@@ -1,10 +1,11 @@
 {
   "name": "gaureeshabackend",
   "version": "1.0.0",
-  "description": "",
+  "description": "Backend for my website",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\""
+    "test": "echo \"Error: no test specified\"",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
