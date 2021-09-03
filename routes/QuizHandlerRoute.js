@@ -66,4 +66,36 @@ router.get("/GiveQuizTest/:CreatorName/:QuizUniqueIdentifier",async function(req
 
 });
 
+
+router.post("/SubmitAttempterScore",async function(req,res){
+    try
+    {
+        if(!(req.body.QuizSubmitterName && req.body.QuizUniqueIdentifier && req.body.QuizCreatorName && req.body.QuizSubmitterScore))
+        {
+            res.json({ErrCode:1,ResMsg:"Invalid Request Parameters",AttempterUsersArrayJson:null});
+        }
+        else
+        {
+            let ObjSUBMISSION_QUESTION_COLLECTION=new SUBMISSION_QUESTION_COLLECTION({
+                QUIZ_CREATOR_NAME:req.body.QuizCreatorName,
+                QUIZ_UNIQUE_IDENTIFIER:req.body.QuizUniqueIdentifier,
+                QUIZ_SUBMITTER_NAME:req.body.QuizSubmitterName,
+                QUIZ_SUBMITTER_SCORE:req.body.QuizSubmitterScore
+            });
+
+            await ObjSUBMISSION_QUESTION_COLLECTION.save();
+
+            let UsersArrayJson=await SUBMISSION_QUESTION_COLLECTION.find({QUIZ_CREATOR_NAME:req.body.QuizCreatorName,QUIZ_UNIQUE_IDENTIFIER:req.body.QuizUniqueIdentifier}).select({QUIZ_SUBMITTER_NAME:1,QUIZ_SUBMITTER_SCORE:1,QUIZ_CREATED_DATE_TIME:1,QUIZ_CREATED_DATE_TIME:1}).sort({QUIZ_SUBMITTER_SCORE:-1}).lean(); 
+
+            res.json({ErrCode:0,ResMsg:"Successfully submited scores and fetched all attempter results.",AttempterUsersArrayJson:UsersArrayJson});
+        }
+    }
+
+    catch(err)
+    {
+        res.json({ErrCode:2,ResMsg:err.message,AttempterUsersArrayJson:null});
+    }
+
+});
+
 module.exports=router;
