@@ -85,7 +85,7 @@ router.post("/SubmitAttempterScore",async function(req,res){
 
             await ObjSUBMISSION_QUESTION_COLLECTION.save();
 
-            let UsersArrayJson=await SUBMISSION_QUESTION_COLLECTION.find({QUIZ_CREATOR_NAME:req.body.QuizCreatorName,QUIZ_UNIQUE_IDENTIFIER:req.body.QuizUniqueIdentifier}).select({QUIZ_SUBMITTER_NAME:1,QUIZ_SUBMITTER_SCORE:1,QUIZ_CREATED_DATE_TIME:1,QUIZ_CREATED_DATE_TIME:1}).sort({QUIZ_SUBMITTER_SCORE:-1}).lean(); 
+            let UsersArrayJson=await SUBMISSION_QUESTION_COLLECTION.find({QUIZ_CREATOR_NAME:req.body.QuizCreatorName,QUIZ_UNIQUE_IDENTIFIER:req.body.QuizUniqueIdentifier}).select({QUIZ_SUBMITTER_NAME:1,QUIZ_SUBMITTER_SCORE:1,QUIZ_CREATED_DATE_TIME:1}).sort({QUIZ_SUBMITTER_SCORE:-1}).lean(); 
 
             res.json({ErrCode:0,ResMsg:"Successfully submited scores and fetched all attempter results.",AttempterUsersArrayJson:UsersArrayJson});
         }
