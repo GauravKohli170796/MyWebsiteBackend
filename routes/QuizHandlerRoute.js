@@ -38,6 +38,7 @@ router.get("/GiveQuizTest/:CreatorName/:QuizUniqueIdentifier",async function(req
         if(!(req.params.CreatorName && req.params.QuizUniqueIdentifier))
         {
             res.json({ErrCode:1,ResMsg:"Invalid Request Parameters",UserQuestionJson:null,AttemptedUserJsonArray:null});
+            return;
         }
         else
         {
@@ -47,10 +48,12 @@ router.get("/GiveQuizTest/:CreatorName/:QuizUniqueIdentifier",async function(req
             if(UserQuestionJson)
             {
                 res.json({ErrCode:0,ResMsg:"Quiz successfully Fetched",UserQuestionJson:UserQuestionJson.QUIZ_JSON_QUESTIONS_WITH_SOLUTION,AttemptedUserJsonArray:UsersArrayJson});
+                return;
             }
             else
             {
                 res.json({ErrCode:1,ResMsg:"No Quiz found for user",UserQuestionJson:null,AttemptedUserJsonArray:null});
+                return;
             }
 
 
@@ -73,6 +76,7 @@ router.post("/SubmitAttempterScore",async function(req,res){
         if(!(req.body.QuizSubmitterName && req.body.QuizUniqueIdentifier && req.body.QuizCreatorName && req.body.QuizSubmitterScore))
         {
             res.json({ErrCode:1,ResMsg:"Invalid Request Parameters",AttempterUsersArrayJson:null});
+            return;
         }
         else
         {
@@ -88,6 +92,7 @@ router.post("/SubmitAttempterScore",async function(req,res){
             let UsersArrayJson=await SUBMISSION_QUESTION_COLLECTION.find({QUIZ_CREATOR_NAME:req.body.QuizCreatorName,QUIZ_UNIQUE_IDENTIFIER:req.body.QuizUniqueIdentifier}).select({QUIZ_SUBMITTER_NAME:1,QUIZ_SUBMITTER_SCORE:1,QUIZ_CREATED_DATE_TIME:1}).sort({QUIZ_SUBMITTER_SCORE:-1}).lean(); 
 
             res.json({ErrCode:0,ResMsg:"Successfully submited scores and fetched all attempter results.",AttempterUsersArrayJson:UsersArrayJson});
+            return;
         }
     }
 
