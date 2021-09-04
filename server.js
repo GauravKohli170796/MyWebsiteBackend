@@ -6,7 +6,9 @@ const cors=require('cors');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 const PORT=process.env.PORT || config.Port;
-let QuizHandlerRoute=require("./routes/QuizHandlerRoute")
+let QuizHandlerRoute=require("./routes/QuizHandlerRoute");
+let HoroscopeHandlerRoute=require("./routes/HoroscopeHandlerRoute");
+
 
 async function AppStart() {
     var CMongoDbConn = new MongoDbConn(config.MongoDB).getInstance();
@@ -31,7 +33,8 @@ async function AppStart() {
         credentials:true
     })); 
 
-  app.use("/Quiz",QuizHandlerRoute);  
+  app.use("/Quiz",QuizHandlerRoute); 
+  app.use("/Horoscope",HoroscopeHandlerRoute);  
 
 
 
