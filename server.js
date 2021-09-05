@@ -8,6 +8,7 @@ app.use(express.urlencoded({ extended: false }));
 const PORT=process.env.PORT || config.Port;
 let QuizHandlerRoute=require("./routes/QuizHandlerRoute");
 let HoroscopeHandlerRoute=require("./routes/HoroscopeHandlerRoute");
+let LoveCalculatorHandler=require("./routes/LoveCalculatorHandler");
 
 
 async function AppStart() {
@@ -34,7 +35,10 @@ async function AppStart() {
     })); 
 
   app.use("/Quiz",QuizHandlerRoute); 
-  app.use("/Horoscope",HoroscopeHandlerRoute);  
+  app.use("/Horoscope",HoroscopeHandlerRoute); 
+  app.use("/Love",LoveCalculatorHandler); 
+  
+
 
 
 
