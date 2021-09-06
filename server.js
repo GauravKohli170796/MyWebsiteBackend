@@ -9,7 +9,7 @@ const PORT=process.env.PORT || config.Port;
 let QuizHandlerRoute=require("./routes/QuizHandlerRoute");
 let HoroscopeHandlerRoute=require("./routes/HoroscopeHandlerRoute");
 let LoveCalculatorHandler=require("./routes/LoveCalculatorHandler");
-
+let QuotesHandlerRoute=require("./routes/QuotesHandlerRoute");
 
 async function AppStart() {
     var CMongoDbConn = new MongoDbConn(config.MongoDB).getInstance();
@@ -36,7 +36,9 @@ async function AppStart() {
 
   app.use("/Quiz",QuizHandlerRoute); 
   app.use("/Horoscope",HoroscopeHandlerRoute); 
-  app.use("/Love",LoveCalculatorHandler); 
+  app.use("/Love",LoveCalculatorHandler);
+  app.use("/Quote",QuotesHandlerRoute);
+   
   
 
 

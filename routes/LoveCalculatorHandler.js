@@ -24,7 +24,7 @@ router.post("/FindLoveDetails",async function(req,res){
        let LoveCalculatorJsonResult=await axios.request(options);
        if(Object.keys(LoveCalculatorJsonResult.data).length)
        {
-            await LOVE_CALCULTOR_COLLECTION({FIRST_NAME:req.body.FirstName,SECOND_NAME:req.body.SecondName},{FIRST_NAME:req.body.FirstName,SECOND_NAME:req.body.SecondName,LOVE_PERCENTAGE_RESULT:LoveCalculatorJsonResult.data.percentage},{upsert:true});
+            await LOVE_CALCULTOR_COLLECTION.updateOne({FIRST_NAME:req.body.FirstName,SECOND_NAME:req.body.SecondName},{FIRST_NAME:req.body.FirstName,SECOND_NAME:req.body.SecondName,LOVE_PERCENTAGE_RESULT:LoveCalculatorJsonResult.data.percentage},{upsert:true});
             res.json({ErrCode:0,ResMsg:"Successfully calculated love percentage",LoveInfoDetailsJson:LoveCalculatorJsonResult.data});
             return;
        }
